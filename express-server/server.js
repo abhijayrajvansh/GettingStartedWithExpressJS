@@ -1,6 +1,6 @@
-const http = require("http")
 const express = require("express");
 const app = express();
+const PORT = 3000;
 
 app.get("/", (req, res) => {
   return res.send("homepage")
@@ -11,10 +11,6 @@ app.get("/about", (req, res) => {
 })
 
 
-const server = http.createServer(app)
-
-const PORT = 3000;
-
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`server started on ${PORT}...`)
-})
+}) 
