@@ -1,7 +1,11 @@
 const express = require("express")
 const PORT = 3000;
+const fs = require("fs")
 const app = express();
 const users = require("./users_db.json")
+
+// middleware
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) =>{
   res.send('average homepage')
@@ -40,8 +44,15 @@ app.route('/api/users/:id')
 
 
 app.post("/api/users", (req, res) => {
-  // todo: create new user
-  return res.json({status: "pending"})
+  const body = req.body;
+  console.log("\nnew user request received:\n\n", body)
+  users.push({id: users.length + 1, ...body})
+
+  fs.writeFile("./users_db.json", JSON.stringify(users), (err, data) => {
+    return res.json({status: "new user added"})
+  })
+
+
 })
 
 app.listen(PORT, () =>{
