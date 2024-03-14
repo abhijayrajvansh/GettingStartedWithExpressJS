@@ -65,8 +65,6 @@ app.post("/api/users", (req, res) => {
   fs.writeFile("./users_db.json", JSON.stringify(users), (err, data) => {
     return res.json({status: "new user added", id: users.length})
   })
-
-
 })
 
 app.listen(PORT, () =>{
